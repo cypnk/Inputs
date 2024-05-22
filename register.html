@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<form id="form">
+	<input type="hidden" name="token">
+	<input type="hidden" name="nonce">
+	<legend>Register</legend>
+	<p>
+		<input type="text" id="username" placeholder="" 
+			pattern="^[\p{L}0-9]{3,100}$" 
+			minlength="3" maxlength="100" required />
+		<label for="username">Username</label>
+		<output for="username" 
+			data-help="* Required" 
+			data-invalid="Username must be between 3 and 100 characters of letters and digits" 
+			data-valid="&#x2714;"></output>
+	</p>
+	<p>
+		<input type="password" id="password" placeholder="" 
+			minlength="8" maxlength="1024" required />
+		<label for="password">Password</label>
+		<output for="password" 
+			data-help="* Required" 
+			data-invalid="Password must be at least 8 characters"  
+			data-valid="&#x2714;"></output>
+	</p>
+	<p><input type="checkbox" id="terms" required> 
+		<label for="terms">Accept <a href="/terms">terms</a></label>
+			<output for="terms" 
+			data-invalid="*"  
+			data-valid="&#x2714;"></output></p>
+	<p><input type="submit" value="Post"></p>
+</form>
+</main>
+</body>
+</html>	
