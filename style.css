@@ -1,0 +1,287 @@
+/* Base color scheme */
+:root {
+	--html-bg: #eceff4;
+	--body-bg: #fff;
+	--txt-color: #4c566a;
+
+	--h-color: #4c566a;
+	
+	--a-color: #3b4252;
+	--a-hover-color: #2e3440;
+	--a-active-color: #bf616a;
+	--a-visited-color: #4c566a;
+	
+	--output-help-color: #4c566a;
+	--output-error-color: #f44336;
+	--output-valid-color: #a3be8c;
+	
+	--label-focus-color: #5e81ac;
+	--label-error-color: #f44336;
+	--label-valid-color: #719e8c;
+	
+	--input-br: #d8dee9;
+	--input-focus-br: #5e81ac;
+	--input-valid-br: #a3be8c;
+	--input-error-br: #bf616a;
+	
+	--btn-bg: #5e81ac;
+	--btn-color: #e5e9f0;
+	--btn-hover-color: #eceff4;
+	--btn-hover-bg: #4c566a;
+	--btn-active-color: #3b4252;
+	--btn-active-bg: #d8dee9;
+	
+	--btn-disable-color: #88c0d0;
+	--btn-disable-bg: #d8dee9;
+}
+
+/* Simple reset */
+*, *::before, *::after {
+	box-sizing: border-box;
+	outline: none;
+}
+
+/* Common background */
+html {
+	background: var(--html-bg);
+}
+
+/* Base page */
+body {
+	font: 400 0.91rem sans-serif;
+	color: var(--txt-color);
+	background: var(--body-bg);
+	border-radius: 0.3rem;
+	width: 90%;
+	max-width: 60vw;
+	margin: 2rem auto;
+	padding: 1rem;
+	line-height: 1.6;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6, legend {
+	color: var(--h-color);
+	font-family: Georgia, serif;
+	letter-spacing: 0.06rem;
+}
+
+h1, h2, h3, legend {
+	font-weight: 400;
+}
+
+/* Links */
+a {
+	color: var(--a-color);
+	text-decoration: underline;
+}
+
+a:hover {
+	color: var(--a-hover-color);
+	text-decoration: none;
+}
+
+a:active {
+	color: var(--a-active-color);
+}
+
+a:visited {
+	color: var(--a-visited-color);
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	text-decoration: none;
+}
+
+
+/* Block content */
+p {
+	margin: 0;
+}
+
+* + p {
+	margin-top: 1rem;
+}
+
+/* Content forms */
+main form {
+	width: 90%;
+	margin: 1rem auto;
+}
+
+legend {
+	margin: 0;
+	padding: 0;
+	font-size: 1.3rem;
+}
+
+input, select, textarea {
+	font: inherit;
+	line-height: inherit;
+	color: inherit;
+	border-radius: 0.3rem;
+}
+
+form p {
+	position: relative;
+}
+
+/* Form labels */
+label[for], output {
+	display: block;
+	user-select: none;
+}
+
+input:is([type="text"],[type="password"],[type="search"],[type="search"]) ~ label[for],
+textarea ~ label[for], select ~ label[for], [contenteditable] ~ label[for] {
+	position: absolute;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	left: 0.8rem;
+	top: 15%;
+	padding: 0;
+	transition: 250ms;
+	pointer-events:none;
+}
+
+textarea[rows] ~ label[for] {
+	top: 0.5rem;
+}
+
+input:is([type="checkbox"],[type="radio"]), 
+input:is([type="checkbox"],[type="radio"]) ~ label {
+	display: inline-block;
+	cursor: pointer;
+}
+
+/* Validation status hinting */
+input:is([type="text"],[type="password"],[type="search"],[type="search"]):focus ~ label[for],
+textarea:focus ~ label[for], [contenteditable]:focus ~ label[for], input.active ~ label[for], 
+input:is([type="text"],[type="password"],[type="search"],[type="search"]):not(:placeholder-shown) ~ label[for],
+textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], [contenteditable]:not(:empty) ~ label[for]
+{
+	top: -0.5rem;
+	background: #fff;
+	font-size: 75%;
+	transition: 250ms;
+	color: var(--label-focus-color);
+	font-weight: 600;
+	padding: 0 0.4rem;
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	 [type="search"]):not(:placeholder-shown):invalid ~ label[for], 
+input.error ~ label[for], textarea:not(:placeholder-shown):invalid ~ label[for], 
+select:not(:placeholder-shown):invalid ~ label[for] {
+	color: var(--label-error-color);
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	 [type="search"]):not(:placeholder-shown):valid ~ label[for],
+textarea:not(:placeholder-shown):valid ~ label[for], 
+select:not(:placeholder-shown):valid ~ label[for] {
+	color: var(--label-valid-color);
+}
+
+/* Validation messaging */
+output {
+	font-size: 90%;
+}
+
+input:is([type="checkbox"],[type="radio"]) ~ label + output {
+	display: inline-block;
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	 [type="search"]):not([required]):placeholder-shown:valid ~ output:after,
+textarea:not([required]):placeholder-shown:valid ~ output:after, 
+select:not([required]):placeholder-shown:valid ~ output:after, output:after {
+	color: var(--output-help-color);
+	content: attr(data-help);
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	 [type="search"]):not(:placeholder-shown):invalid ~ output:after,
+textarea:not(:placeholder-shown):invalid ~ output:after, 
+select:not(:placeholder-shown):invalid ~ output:after,
+input:is([type="checkbox"],[type="radio"]):invalid ~ label + output:after {
+	color: var(--output-error-color);
+	content: attr(data-invalid);
+}
+
+input:is([type="text"],[type="password"],[type="search"],[type="search"]
+	):valid ~ output:after, textarea:valid ~ output:after, 
+input:is([type="checkbox"],[type="radio"]):valid ~ label + output:after, 
+select:valid ~ output:after {
+	color: var(--output-valid-color);
+	content: attr(data-valid);
+}
+
+/* Form inputs */
+input:is([type="text"],[type="password"],[type="search"],[type="search"]), 
+textarea, select {
+	background: #fff;
+	border: 0.1rem solid var(--input-br);
+	padding: 0.5rem;
+}
+
+/* Dropdown selects */
+select {
+	padding: 0.7rem 0.6rem;
+	cursor: pointer;
+}
+
+main input:is([type="text"],[type="password"],[type="search"],[type="search"]), 
+main textarea, main select {
+	display: block;
+	width: 100%;
+}
+
+input:is([type="text"],[type="password"],[type="search"],[type="search"]):focus, 
+textarea:focus, select:focus, input.active {
+	border-color: var(--input-focus-br);
+}
+
+input:is([type="text"],[type="password"],[type="search"],[type="search"]):not(:placeholder-shown):invalid, 
+textarea:not(:placeholder-shown):invalid, 
+select:not(:placeholder-shown):invalid {
+	border-color: var(--input-error-br);
+}
+
+input:is([type="text"],[type="password"],[type="search"],[type="search"]):not(:placeholder-shown):valid, 
+textarea:not(:placeholder-shown):valid, 
+select:not(:placeholder-shown):valid {
+	border-color: var(--input-valid-br);
+}
+
+/* Input buttons */
+input:is([type="submit"],[type="reset"],[type="button"]), button, .btn {
+	background: var(--btn-bg);
+	border: 1px solid var(--btn-bg);
+	color: #fff;
+	padding: 0.2rem 1rem;
+	cursor: pointer;
+}
+
+input:is([type="submit"],[type="reset"],[type="button"]):hover, button:hover, .btn:hover {
+	background: var(--btn-hover-bg);
+	border-color: var(--btn-hover-bg);
+	color: var(--btn-hover-color);
+	box-shadow: 0.1rem 0.1rem 0.1rem var(--btn-hover-color);
+}
+
+input:is([type="submit"],[type="reset"],[type="button"]):focus, button:focus, .btn:focus {
+	background: var(--btn-active-bg);
+	border-color: var(--btn-active-bg);
+	color: var(--btn-active-color);
+}
+
+form:invalid input:is([type="submit"],[type="reset"],[type="button"]), 
+input:is([type="submit"],[type="reset"],[type="button"]):disabled, 
+form:invalid button, button:disabled, form:invalid .btn, .btn:disabled {
+	background: var(--btn-disable-bg);
+	border-color: var(--btn-disable-bg);
+	color: var(--btn-disable-color);
+	cursor: not-allowed;
+}
