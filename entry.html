@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Entry</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<form id="form">
+	<input type="hidden" name="token">
+	<input type="hidden" name="nonce">
+	<legend>Entry</legend>
+	<p>
+		<input type="text" id="title" name="title" placeholder="" 
+			minlength="3" maxlength="255" required />
+		<label for="title">Title</label>
+		<output for="title" 
+			data-help="* Required" 
+			data-invalid="Title must be between 3 and 255 characters" 
+			data-valid="&#x2714;"></output>
+	</p>
+	<p>
+		<textarea id="body" name="body" name="body" placeholder="" 
+			minlength="3" maxlength="50000" cols="60" rows="4" 
+			oninput="this.style.height = ''; this.style.height = this.scrollHeight + 5 +'px'" 
+			required></textarea>
+		<label for="body">Body</label>
+		<output for="body" 
+			data-help="* Required" 
+			data-invalid="Body must be between 3 and 50,000 characters" 
+			data-valid="&#x2714;"></output>
+	</p>
+	<p>
+		<input type="text" id="name" name="name" placeholder="" 
+			minlength="3" maxlength="255" />
+		<label for="name">Name</label>
+		<output for="name" 
+			data-help="Optional" 
+			data-invalid="Name must be between 3 and 255 characters" 
+			data-valid="&#x2714;"></output>
+	</p>
+	<p>
+		<select id="category" required>
+			<option selected></option>
+			<option>News</option>
+		</select>
+		<label for="select">Category</label>
+		<output for="category" 
+			data-help="* Required" 
+			data-invalid="Entry category is required"  
+			data-valid="&#x2714;"></output>
+	</p>
+	<p><input type="checkbox" id="terms"> <label for="terms">Accept <a href="#terms">terms</a></label></p>
+	<p><input type="submit" value="Post"></p>
+</form>
+</main>
+</body>
+</html>	
+
