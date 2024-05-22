@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Search</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<form id="form">
+	<p>
+		<input type="search" id="search" placeholder="" 
+			minlength="3" maxlength="200" />
+		<label for="search">Search</label>
+		<output for="search" 
+			data-help="Enter term(s) to find" 
+			data-invalid="Search mmust be between 3 and 200 characters" 
+			data-valid="&#x2714;"></output>
+	</p>
+	<p>
+		<select id="select" required>
+			<option selected></option>
+			<option>Main</option>
+		</select>
+		<label for="select">Select section</label>
+		<output for="select" 
+			data-help="* Required" 
+			data-invalid="Selection required"  
+			data-valid="&#x2714;"></output>
+	</p>
+	<p><input type="submit" value="Post"></p>
+</form>
+</main>
+</body>
+</html>
