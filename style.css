@@ -122,7 +122,7 @@ input, select, textarea {
 	border-radius: 0.3rem;
 }
 
-form p {
+form p, section div {
 	position: relative;
 }
 
@@ -132,7 +132,7 @@ label[for], output {
 	user-select: none;
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="search"]) ~ label[for],
+input:is([type="text"],[type="password"],[type="search"],[type="number"]) ~ label[for],
 textarea ~ label[for], select ~ label[for], [contenteditable] ~ label[for] {
 	position: absolute;
 	overflow: hidden;
@@ -156,10 +156,11 @@ input:is([type="checkbox"],[type="radio"]) ~ label {
 }
 
 /* Validation status hinting */
-input:is([type="text"],[type="password"],[type="search"],[type="search"]):focus ~ label[for],
-textarea:focus ~ label[for], [contenteditable]:focus ~ label[for], input.active ~ label[for], 
-input:is([type="text"],[type="password"],[type="search"],[type="search"]):not(:placeholder-shown) ~ label[for],
-textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], [contenteditable]:not(:empty) ~ label[for]
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):focus ~ label[for],
+textarea:focus ~ label[for], [contenteditable]:focus ~ label[for], input.active ~ label[for],
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown) ~ label[for],
+textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], 
+[contenteditable]:not(:empty) ~ label[for]
 {
 	top: -0.5rem;
 	background: #fff;
@@ -170,19 +171,18 @@ textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], [contentedit
 	padding: 0 0.4rem;
 }
 
-input:is([type="text"],[type="password"],[type="search"],
-	 [type="search"]):not(:placeholder-shown):invalid ~ label[for], 
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):invalid ~ label[for], 
 input.error ~ label[for], textarea:not(:placeholder-shown):invalid ~ label[for], 
 select:not(:placeholder-shown):invalid ~ label[for] {
 	color: var(--label-error-color);
 }
 
-input:is([type="text"],[type="password"],[type="search"],
-	 [type="search"]):not(:placeholder-shown):valid ~ label[for],
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):valid ~ label[for],
 textarea:not(:placeholder-shown):valid ~ label[for], 
 select:not(:placeholder-shown):valid ~ label[for] {
 	color: var(--label-valid-color);
 }
+
 
 /* Validation messaging */
 output {
@@ -193,14 +193,14 @@ input:is([type="checkbox"],[type="radio"]) ~ label + output {
 	display: inline-block;
 }
 
-input:is([type="text"],[type="password"],[type="search"]):not([required]):placeholder-shown:valid ~ output:after,
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):not([required]):placeholder-shown:valid ~ output:after,
 textarea:not([required]):placeholder-shown:valid ~ output:after, 
 select:not([required]):placeholder-shown:valid ~ output:after, output:after {
 	color: var(--output-help-color);
 	content: attr(data-help);
 }
 
-input:is([type="text"],[type="password"],[type="search"]):not(:placeholder-shown):invalid ~ output:after,
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):invalid ~ output:after,
 textarea:not(:placeholder-shown):invalid ~ output:after, 
 select:not(:placeholder-shown):invalid ~ output:after,
 input:is([type="checkbox"],[type="radio"]):invalid ~ label + output:after {
@@ -208,7 +208,8 @@ input:is([type="checkbox"],[type="radio"]):invalid ~ label + output:after {
 	content: attr(data-invalid);
 }
 
-input:is([type="text"],[type="password"],[type="search"]):valid ~ output:after, 
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"]):valid ~ output:after, 
 textarea:valid ~ output:after, 
 input:is([type="checkbox"],[type="radio"]):valid ~ label + output:after, 
 select:valid ~ output:after {
@@ -217,7 +218,7 @@ select:valid ~ output:after {
 }
 
 /* Form inputs */
-input:is([type="text"],[type="password"],[type="search"],[type="search"]), 
+input:is([type="text"],[type="password"],[type="search"],[type="number"]), 
 textarea, select {
 	background: #fff;
 	border: 0.1rem solid var(--input-br);
@@ -230,24 +231,32 @@ select {
 	cursor: pointer;
 }
 
-main input:is([type="text"],[type="password"],[type="search"],[type="search"]), 
+main input:is([type="text"],[type="password"],[type="search"],[type="number"]), 
 main textarea, main select {
 	display: block;
 	width: 100%;
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="search"]):focus, 
+main form section {
+	margin-top: 1rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap: 1rem;
+	column-gap: 1rem;
+}
+
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):focus, 
 textarea:focus, select:focus, input.active {
 	border-color: var(--input-focus-br);
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="search"]):not(:placeholder-shown):invalid, 
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):invalid, 
 textarea:not(:placeholder-shown):invalid, 
 select:not(:placeholder-shown):invalid {
 	border-color: var(--input-error-br);
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="search"]):not(:placeholder-shown):valid, 
+input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):valid, 
 textarea:not(:placeholder-shown):valid, 
 select:not(:placeholder-shown):valid {
 	border-color: var(--input-valid-br);
