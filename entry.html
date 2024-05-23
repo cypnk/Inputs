@@ -51,6 +51,26 @@
 			data-invalid="Entry category is required"  
 			data-valid="&#x2714;"></output>
 	</p>
+	<section>
+		<div>
+		<input type="number" id="maxcomments" name="maxcomments" placeholder="" 
+			minlength="1" maxlength="999" />
+		<label for="name">Max comments</label>
+		<output for="maxcomments" 
+			data-help="Optional" 
+			data-invalid="Must be numbers" 
+			data-valid="&#x2714;"></output>
+		</div>
+		<div>
+		<input type="number" id="maxreplies" name="maxreplies" placeholder="" 
+			minlength="1" maxlength="999" />
+		<label for="name">Max replies</label>
+		<output for="maxreplies" 
+			data-help="Optional" 
+			data-invalid="Must be numbers" 
+			data-valid="&#x2714;"></output>
+		</div>
+	</section>
 	<p><input type="checkbox" id="terms"> <label for="terms">Accept <a href="#terms">terms</a></label></p>
 	<p><input type="submit" value="Post"></p>
 </form>
