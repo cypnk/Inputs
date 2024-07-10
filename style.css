@@ -126,6 +126,20 @@ form p, section div {
 	position: relative;
 }
 
+.columns {
+	display: grid;
+	grid-column-gap: 1rem;
+	grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
+}
+
+.columns p + p {
+	margin-top: 0;
+}
+
+form .columns {
+	margin-top: 1rem;
+}
+
 /* Form labels */
 label[for], output {
 	display: block;
@@ -292,3 +306,21 @@ form:invalid button, button:disabled, form:invalid .btn, .btn:disabled {
 	color: var(--btn-disable-color);
 	cursor: not-allowed;
 }
+
+/* Responsive page size */
+@media (max-width: 1024px) {
+body {
+	width: 90%;
+	max-width: 80vw;
+}
+}
+
+@media (max-width: 800px) {
+body {
+	width: 100%;
+	max-width: 100%;
+	border: 0;
+	margin: 0;
+}
+}
+
