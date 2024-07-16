@@ -11,6 +11,7 @@
 	<input type="hidden" name="token">
 	<input type="hidden" name="nonce">
 	<legend>Register</legend>
+	<div class="columns">
 	<p>
 		<input type="text" id="username" placeholder="" 
 			pattern="^[\p{L}0-9]{3,100}$" 
@@ -30,6 +31,7 @@
 			data-invalid="Password must be at least 8 characters"  
 			data-valid="&#x2714;"></output>
 	</p>
+	</div>
 	<p><input type="checkbox" id="terms" required> 
 		<label for="terms">Accept <a href="/terms">terms</a></label>
 			<output for="terms" 
