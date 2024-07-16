@@ -11,16 +11,26 @@
 	--a-active-color: #bf616a;
 	--a-visited-color: #4c566a;
 	
+	--h-a-color: #0066cc;
+	--h-a-hover-color: #0078d7;
+	--h-a-active-color: #ee0000;
+	--h-a-visited-color: #551a8b;
+	
+	--code-bg: #f6f6f6;
+	--code-br-color:  #ccc;
+	
 	--output-help-color: #4c566a;
 	--output-error-color: #f44336;
 	--output-valid-color: #a3be8c;
 	
-	--label-focus-color: #5e81ac;
+	--place-color: #777;
+	
+	--label-focus-color: #2b569a;
 	--label-error-color: #f44336;
 	--label-valid-color: #719e8c;
 	
 	--input-br: #d8dee9;
-	--input-focus-br: #5e81ac;
+	--input-focus-br: #2b569a;
 	--input-valid-br: #a3be8c;
 	--input-error-br: #bf616a;
 	
@@ -38,7 +48,6 @@
 /* Simple reset */
 *, *::before, *::after {
 	box-sizing: border-box;
-	outline: none;
 }
 
 /* Common background */
@@ -55,7 +64,7 @@ body {
 	width: 90%;
 	max-width: 60vw;
 	margin: 2rem auto;
-	padding: 1rem;
+	padding: 1rem 0;
 	line-height: 1.6;
 }
 
@@ -71,7 +80,7 @@ h1, h2, h3, legend {
 }
 
 /* Links */
-a {
+a, label[rel="link"] {
 	color: var(--a-color);
 	text-decoration: underline;
 }
@@ -89,17 +98,60 @@ a:visited {
 	color: var(--a-visited-color);
 }
 
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+:is(h1,h2,h3,h4,h5,h6) a {
 	text-decoration: none;
+	color: var(--h-a-color);
+}
+
+:is(h1,h2,h3,h4,h5,h6) a:hover {
+	color: var(--h-a-hover-color);
+	text-decoration: underline;
+}
+
+:is(h1,h2,h3,h4,h5,h6) a:active {
+	color: var(--h-a-active-color);
+}
+
+:is(h1,h2,h3,h4,h5,h6) a:visited {
+	color: var(--h-a-visited-color);
 }
 
 
 /* Block content */
-p {
-	margin: 0;
+h1, h2, h3, h4, h5, h6, p {
+	margin: 0 2rem;
 }
 
 * + p {
+	margin-top: 1rem;
+}
+
+pre, code {
+	font: inherit;
+	font-family: "Menlo", "Consolas", monospace;
+	border: 1px solid var(--code-br-color);
+	border-radius:0.3rem;
+	background: var(--code-bg);
+}
+
+pre {
+	padding:0.7rem 1rem;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+code {
+	padding:0.1rem 0.3rem;
+}
+
+.columns {
+	display: grid;
+	grid-column-gap: 1rem;
+	grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
+}
+
+form .columns {
 	margin-top: 1rem;
 }
 
@@ -115,35 +167,43 @@ legend {
 	font-size: 1.3rem;
 }
 
-input, select, textarea {
+input, textarea, select:not(span[rel="bound"] select), span[rel="bound"] {
 	font: inherit;
 	line-height: inherit;
 	color: inherit;
 	border-radius: 0.3rem;
 }
 
-form p, section div {
+form p {
 	position: relative;
+	margin: 1rem 0;
 }
 
-.columns {
-	display: grid;
-	grid-column-gap: 1rem;
-	grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
+.columns p {
+	margin: 0;
 }
 
 .columns p + p {
 	margin-top: 0;
 }
 
-form .columns {
-	margin-top: 1rem;
+a, label[for], summary, select, 
+input:is([type="submit"],[type="button"],[type="reset"]) {
+	cursor: pointer;
 }
 
 /* Form labels */
 label[for], output {
 	display: block;
 	user-select: none;
+}
+
+::placeholder, :empty:before {
+	color: var(--place-color);
+}
+
+:focus-within {
+	outline: none;
 }
 
 input:is([type="text"],[type="password"],[type="search"],[type="number"]) ~ label[for],
@@ -170,11 +230,12 @@ input:is([type="checkbox"],[type="radio"]) ~ label {
 }
 
 /* Validation status hinting */
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):focus ~ label[for],
-textarea:focus ~ label[for], [contenteditable]:focus ~ label[for], input.active ~ label[for],
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown) ~ label[for],
-textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], 
-[contenteditable]:not(:empty) ~ label[for]
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"]):focus ~ label[for],
+textarea:focus ~ label[for], [contenteditable]:focus ~ label[for], input.active ~ label[for], 
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"]):not(:placeholder-shown) ~ label[for],
+textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], [contenteditable]:not(:empty) ~ label[for]
 {
 	top: -0.5rem;
 	background: #fff;
@@ -185,18 +246,19 @@ textarea:not(:placeholder-shown) ~ label[for], select ~ label[for],
 	padding: 0 0.4rem;
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):invalid ~ label[for], 
+input:is([type="text"],[type="password"],[type="search"],
+	 [type="number"],[type="url"]):not(:placeholder-shown):invalid ~ label[for], 
 input.error ~ label[for], textarea:not(:placeholder-shown):invalid ~ label[for], 
 select:not(:placeholder-shown):invalid ~ label[for] {
 	color: var(--label-error-color);
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):valid ~ label[for],
+input:is([type="text"],[type="password"],[type="search"],
+	 [type="number"],[type="url"]):not(:placeholder-shown):valid ~ label[for],
 textarea:not(:placeholder-shown):valid ~ label[for], 
 select:not(:placeholder-shown):valid ~ label[for] {
 	color: var(--label-valid-color);
 }
-
 
 /* Validation messaging */
 output {
@@ -207,14 +269,16 @@ input:is([type="checkbox"],[type="radio"]) ~ label + output {
 	display: inline-block;
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):not([required]):placeholder-shown:valid ~ output:after,
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"]):not([required]):placeholder-shown:valid ~ output:after,
 textarea:not([required]):placeholder-shown:valid ~ output:after, 
 select:not([required]):placeholder-shown:valid ~ output:after, output:after {
 	color: var(--output-help-color);
 	content: attr(data-help);
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):invalid ~ output:after,
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"]):not(:placeholder-shown):invalid ~ output:after,
 textarea:not(:placeholder-shown):invalid ~ output:after, 
 select:not(:placeholder-shown):invalid ~ output:after,
 input:is([type="checkbox"],[type="radio"]):invalid ~ label + output:after {
@@ -223,7 +287,7 @@ input:is([type="checkbox"],[type="radio"]):invalid ~ label + output:after {
 }
 
 input:is([type="text"],[type="password"],[type="search"],
-	[type="number"]):valid ~ output:after, 
+	[type="number"],[type="url"]):valid ~ output:after, 
 textarea:valid ~ output:after, 
 input:is([type="checkbox"],[type="radio"]):valid ~ label + output:after, 
 select:valid ~ output:after {
@@ -232,54 +296,56 @@ select:valid ~ output:after {
 }
 
 /* Form inputs */
-input:is([type="text"],[type="password"],[type="search"],[type="number"]), 
-textarea, select {
+input:is([type="text"],[type="password"],[type="search"],[type="number"],[type="url"]), 
+textarea, select:not(span[rel="bound"] select), span[rel="bound"] {
 	background: #fff;
 	border: 0.1rem solid var(--input-br);
 	padding: 0.5rem;
 }
 
 /* Dropdown selects */
-select {
+select:not(span[rel="bound"] select) {
 	padding: 0.7rem 0.6rem;
 	cursor: pointer;
 }
 
-main input:is([type="text"],[type="password"],[type="search"],[type="number"]), 
-main textarea, main select {
+main input:is([type="text"],[type="password"],[type="search"],[type="number"],[type="url"]), 
+main textarea, main select:not(span[rel="bound"] select) {
 	display: block;
 	width: 100%;
 }
 
-main form section {
-	margin-top: 1rem;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-column-gap: 1rem;
-	column-gap: 1rem;
-}
-
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):focus, 
-textarea:focus, select:focus, input.active {
+input:is([type="text"],[type="password"],[type="search"],[type="number"],[type="url"]):focus, 
+textarea:focus, select:not(span[rel="bound"] select):focus, 
+span[rel="bound"]:focus-within, input.active {
 	border-color: var(--input-focus-br);
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):invalid, 
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"]):not(:placeholder-shown):invalid, 
 textarea:not(:placeholder-shown):invalid, 
-select:not(:placeholder-shown):invalid {
+select:not(span[rel="bound"] select):not(:placeholder-shown):invalid {
 	border-color: var(--input-error-br);
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="number"]):not(:placeholder-shown):valid, 
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"]):not(:placeholder-shown):valid, 
 textarea:not(:placeholder-shown):valid, 
 select:not(:placeholder-shown):valid {
 	border-color: var(--input-valid-br);
 }
 
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"]):not(:placeholder-shown):valid:focus, 
+textarea:not(:placeholder-shown):valid:focus, 
+select:not(:placeholder-shown):valid:focus {
+	border-color: var(--input-focus-br);
+}
+
 /* Input buttons */
 input:is([type="submit"],[type="reset"],[type="button"]), button, .btn {
 	background: var(--btn-bg);
-	border: 1px solid var(--btn-bg);
+	border: 0.1rem solid var(--btn-bg);
 	color: #fff;
 	padding: 0.2rem 1rem;
 	cursor: pointer;
@@ -307,7 +373,33 @@ form:invalid button, button:disabled, form:invalid .btn, .btn:disabled {
 	cursor: not-allowed;
 }
 
-/* Responsive page size */
+/* Editable (bounded) select */
+span[rel="bound"] {
+	padding: 0;
+}
+
+span[rel="bound"] input {
+	padding: 0.5rem;
+}
+
+span[rel="bound"] :is(input, select)  {
+	border: 0;
+	margin: 0;
+}
+
+span[rel="bound"] select {
+	background: inherit;
+	font: inherit;
+	padding: 0;
+}
+
+span[rel="bound"] {
+	display: inline-grid;
+	gap: 0;
+	padding: 0;
+	grid-template-columns: calc(100% - 1.2rem) 1rem;
+}
+
 @media (max-width: 1024px) {
 body {
 	width: 90%;
@@ -324,3 +416,12 @@ body {
 }
 }
 
+@media (max-width: 640px ) {
+.columns {
+	display: block;
+}
+
+.columns p + p {
+	margin-top: 1rem;
+}
+}
