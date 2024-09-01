@@ -235,7 +235,8 @@ input:is([type="text"],[type="password"],[type="search"],
 	[type="number"],[type="url"],[type="datetime-local"]):focus ~ label[for],
 textarea:focus ~ label[for], [contenteditable]:focus ~ label[for], input.active ~ label[for], 
 input:is([type="text"],[type="password"],[type="search"],
-	[type="number"],[type="url"]):not(:placeholder-shown) ~ label[for],
+	[type="number"],[type="url"],[type="datetime-local"]):not(:placeholder-shown) ~ label[for],
+input:is([type="datetime-local"]):not([value=""]) ~ label[for],
 textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], [contenteditable]:not(:empty) ~ label[for]
 {
 	top: -0.5rem;
