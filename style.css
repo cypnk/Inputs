@@ -206,7 +206,8 @@ label[for], output {
 	outline: none;
 }
 
-input:is([type="text"],[type="password"],[type="search"],[type="number"]) ~ label[for],
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"],[type="datetime-local"]) ~ label[for],
 textarea ~ label[for], select ~ label[for], [contenteditable] ~ label[for] {
 	position: absolute;
 	overflow: hidden;
@@ -231,7 +232,7 @@ input:is([type="checkbox"],[type="radio"]) ~ label {
 
 /* Validation status hinting */
 input:is([type="text"],[type="password"],[type="search"],
-	[type="number"],[type="url"]):focus ~ label[for],
+	[type="number"],[type="url"],[type="datetime-local"]):focus ~ label[for],
 textarea:focus ~ label[for], [contenteditable]:focus ~ label[for], input.active ~ label[for], 
 input:is([type="text"],[type="password"],[type="search"],
 	[type="number"],[type="url"]):not(:placeholder-shown) ~ label[for],
@@ -247,14 +248,14 @@ textarea:not(:placeholder-shown) ~ label[for], select ~ label[for], [contentedit
 }
 
 input:is([type="text"],[type="password"],[type="search"],
-	 [type="number"],[type="url"]):not(:placeholder-shown):invalid ~ label[for], 
+	 [type="number"],[type="url"],[type="datetime-local"]):not(:placeholder-shown):invalid ~ label[for], 
 input.error ~ label[for], textarea:not(:placeholder-shown):invalid ~ label[for], 
 select:not(:placeholder-shown):invalid ~ label[for] {
 	color: var(--label-error-color);
 }
 
 input:is([type="text"],[type="password"],[type="search"],
-	 [type="number"],[type="url"]):not(:placeholder-shown):valid ~ label[for],
+	 [type="number"],[type="url"],[type="datetime-local"]):not(:placeholder-shown):valid ~ label[for],
 textarea:not(:placeholder-shown):valid ~ label[for], 
 select:not(:placeholder-shown):valid ~ label[for] {
 	color: var(--label-valid-color);
@@ -270,7 +271,7 @@ input:is([type="checkbox"],[type="radio"]) ~ label + output {
 }
 
 input:is([type="text"],[type="password"],[type="search"],
-	[type="number"],[type="url"]):not([required]):placeholder-shown:valid ~ output:after,
+	[type="number"],[type="url"],[type="datetime-local"]):not([required]):placeholder-shown:valid ~ output:after,
 textarea:not([required]):placeholder-shown:valid ~ output:after, 
 select:not([required]):placeholder-shown:valid ~ output:after, output:after {
 	color: var(--output-help-color);
@@ -278,7 +279,7 @@ select:not([required]):placeholder-shown:valid ~ output:after, output:after {
 }
 
 input:is([type="text"],[type="password"],[type="search"],
-	[type="number"],[type="url"]):not(:placeholder-shown):invalid ~ output:after,
+	[type="number"],[type="url"],[type="datetime-local"]):not(:placeholder-shown):invalid ~ output:after,
 textarea:not(:placeholder-shown):invalid ~ output:after, 
 select:not(:placeholder-shown):invalid ~ output:after,
 input:is([type="checkbox"],[type="radio"]):invalid ~ label + output:after {
@@ -287,7 +288,7 @@ input:is([type="checkbox"],[type="radio"]):invalid ~ label + output:after {
 }
 
 input:is([type="text"],[type="password"],[type="search"],
-	[type="number"],[type="url"]):valid ~ output:after, 
+	[type="number"],[type="url"],[type="datetime-local"]):valid ~ output:after, 
 textarea:valid ~ output:after, 
 input:is([type="checkbox"],[type="radio"]):valid ~ label + output:after, 
 select:valid ~ output:after {
@@ -296,11 +297,53 @@ select:valid ~ output:after {
 }
 
 /* Form inputs */
-input:is([type="text"],[type="password"],[type="search"],[type="number"],[type="url"]), 
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"],[type="datetime-local"]), 
 textarea, select:not(span[rel="bound"] select), span[rel="bound"] {
 	background: #fff;
 	border: 0.1rem solid var(--input-br);
 	padding: 0.5rem;
+}
+
+/* Dropdown selects */
+select:not(span[rel="bound"] select) {
+	padding: 0.7rem 0.6rem;
+	cursor: pointer;
+}
+
+main input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"],[type="datetime-local"]), 
+main textarea, main select:not(span[rel="bound"] select) {
+	display: block;
+	width: 100%;
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"],[type="datetime-local"]):focus, 
+textarea:focus, select:not(span[rel="bound"] select):focus, 
+span[rel="bound"]:focus-within, input.active {
+	border-color: var(--input-focus-br);
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"],[type="datetime-local"]):not(:placeholder-shown):invalid, 
+textarea:not(:placeholder-shown):invalid, 
+select:not(span[rel="bound"] select):not(:placeholder-shown):invalid {
+	border-color: var(--input-error-br);
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"],[type="datetime-local"]):not(:placeholder-shown):valid, 
+textarea:not(:placeholder-shown):valid, 
+select:not(:placeholder-shown):valid {
+	border-color: var(--input-valid-br);
+}
+
+input:is([type="text"],[type="password"],[type="search"],
+	[type="number"],[type="url"],[type="datetime-local"]):not(:placeholder-shown):valid:focus, 
+textarea:not(:placeholder-shown):valid:focus, 
+select:not(:placeholder-shown):valid:focus {
+	border-color: var(--input-focus-br);
 }
 
 /* Dropdown selects */
